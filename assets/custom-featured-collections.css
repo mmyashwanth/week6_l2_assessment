@@ -1,0 +1,258 @@
+.custom-featured-collections__product-card-wrapper {
+  --buttons-radius-outset: 31px;
+  padding: 12px;
+}
+
+.custom-featured-collections__product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/*------------------------------------PRODUCT MEDIA------------------------------------ */
+.custom-featured-collections__media-wrapper {
+  border-radius: 16px;
+  background-color: #fff;
+}
+
+.custom-featured-collections__media-wrapper picture {
+  display: block;
+  line-height: 0;
+}
+
+.custom-featured-collections__media-wrapper picture img {
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/*------------------------------------ PRODUCT INFO------------------------------------ */
+
+.custom-featured-collections__color-variants-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.custom-featured-collections__color-variants-wrapper
+  .custom-featured-collections__color-variants {
+  display: block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.custom-featured-collections__color-variants.active {
+  outline: 1px solid;
+  outline-offset: 2px;
+}
+
+.custom-featured-collections__color-variants:hover {
+  outline: 1px solid;
+  outline-offset: 2px;
+}
+
+.custom-featured-collections__info-wrapper {
+  text-align: center;
+}
+
+.custom-featured-collections__info-wrapper h4 {
+  font-size: 12px;
+}
+.custom-featured-collections__info-wrapper h3 {
+  font-size: 14px;
+}
+.custom-featured-collections__info-wrapper h3:hover {
+  color: #d03c3f;
+}
+
+.custom-featured-collections__info-wrapper h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-featured-collections__info-wrapper p {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.custom-featured-collections__info-wrapper .compare-at-price {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.custom-featured-collections__info-wrapper .stock {
+  color: #008a00;
+  font-size: 400;
+}
+
+.custom-featured-collections__info-wrapper .stock.out-of-stock {
+  color: #ff0000;
+}
+
+.custom-featured-collections__tags-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+}
+
+.custom-featured-collections__tags-container .new {
+  display: inline-block;
+  background-color: #008a00;
+  border-radius: 1.6rem;
+  padding: 0px 6px;
+  color: #fff;
+}
+
+.custom-featured-collections__tags-container .percentage {
+  display: inline-block;
+  background-color: #d03c3f;
+  border-radius: 1.6rem;
+  padding: 0px 6px;
+  color: #fff;
+  margin-top: 0;
+}
+/*------------------------------------SPLIDE BUTTONS------------------------------------*/
+.splide__arrow.splide__arrow--prev.previous-button {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  border-radius: 0 31px 31px 0;
+  background-color: #d03c3f;
+}
+.splide__arrow.splide__arrow--next.previous-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 0 31px 31px 0;
+  z-index: 2;
+  background-color: #000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.splide__arrow.splide__arrow--next.previous-button:hover::after {
+  transform: translateX(0);
+}
+.splide__arrow.splide__arrow--prev.previous-button svg,
+.splide__arrow.splide__arrow--next.next-button svg {
+  fill: none;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+}
+
+.splide__arrow.splide__arrow--next.next-button {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  border-radius: 31px 0 0 31px;
+  background-color: #d03c3f;
+}
+
+.splide__arrow.splide__arrow--next.next-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 31px 0 0 31px;
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* 
+.splide__arrow.splide__arrow--next.next-button:active,
+.splide__arrow.splide__arrow--next.next-button:hover,
+.splide__arrow.splide__arrow--prev.previous-button:active,
+.splide__arrow.splide__arrow--prev.previous-button:hover {
+  background-color: rgb(54, 123, 246);
+  border: 1px solid rgb(54, 123, 246);
+  color: #fff;
+} */
+
+/*------------------------------------ QUICK LOOK ------------------------------------*/
+@media screen and (max-width: 989px) {
+  .splide__arrows.splide__arrows--ltr.btns-container {
+    display: none;
+  }
+}
+
+.custom-featured-collections__quick-look-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+}
+
+.custom-featured-collections__quick-look-container button {
+  cursor: pointer;
+  font-family: inherit;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-featured-collections__quick-look-container button::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #d03c3f;
+  border-radius: 1.6rem;
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.custom-featured-collections__quick-look-container button:hover::after {
+  transform: translateX(0);
+}
+
+.quick-look-btn .text {
+  display: none;
+  z-index: 3;
+}
+
+.quick-look-btn div.svg svg {
+  height: 21px;
+  fill: #fff;
+  transform: translateY(2px);
+  z-index: 3;
+}
+
+@media screen and (min-width: 990px) {
+  .custom-featured-collections__quick-look-container button {
+    width: auto;
+    padding: 8px 12px;
+    border-radius: 1.6rem;
+  }
+  .quick-look-btn div.svg svg {
+    display: none;
+  }
+  .quick-look-btn .text {
+    display: block;
+  }
+}

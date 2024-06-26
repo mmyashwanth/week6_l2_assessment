@@ -1,0 +1,15 @@
+{
+  "name": "week_6_l2_assessment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev -s b04-yashwanth.myshopify.com",
+    "dev-sync": "shopify theme dev --theme-editor-sync -s b04-yashwanth.myshopify.com",
+    "pull": "shopify theme pull -s b04-yashwanth.myshopify.com",
+    "pull-json": "shopify theme pull -d -o *.json -s b04-yashwanth.myshopify.com",
+    "share": "shopify theme share -s b04-yashwanth.myshopify.com"
+  },
+  "author": "",
+  "license": "ISC"
+}
