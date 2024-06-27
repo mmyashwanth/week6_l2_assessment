@@ -23,7 +23,7 @@ const swatchBtns = document.querySelectorAll(
 );
 
 swatchBtns.forEach((btn) =>
-  btn.addEventListener("click", function () {
+  btn.addEventListener("mouseover", function () {
     const siblings = Array.from(this.parentNode.children).filter(
       (child) => child !== this
     );

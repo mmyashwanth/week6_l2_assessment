@@ -125,8 +125,11 @@
   width: 50px;
   border-radius: 0 31px 31px 0;
   background-color: #d03c3f;
+  overflow: hidden;
+  position: absolute;
 }
-.splide__arrow.splide__arrow--next.previous-button::after {
+
+.splide__arrow.splide__arrow--prev.previous-button::after {
   content: "";
   position: absolute;
   top: 0;
@@ -134,21 +137,24 @@
   height: 50px;
   width: 50px;
   border-radius: 0 31px 31px 0;
-  z-index: 2;
+  z-index: 1;
   background-color: #000;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
 
-.splide__arrow.splide__arrow--next.previous-button:hover::after {
+.splide__arrow.splide__arrow--prev.previous-button:hover::after {
   transform: translateX(0);
 }
+
 .splide__arrow.splide__arrow--prev.previous-button svg,
 .splide__arrow.splide__arrow--next.next-button svg {
   fill: none;
   color: #fff;
   height: 30px;
   width: 30px;
+  z-index: 2;
+  position: relative;
 }
 
 .splide__arrow.splide__arrow--next.next-button {
@@ -157,6 +163,8 @@
   width: 50px;
   border-radius: 31px 0 0 31px;
   background-color: #d03c3f;
+  overflow: hidden;
+  position: absolute;
 }
 
 .splide__arrow.splide__arrow--next.next-button::after {
@@ -168,19 +176,14 @@
   width: 50px;
   border-radius: 31px 0 0 31px;
   z-index: 1;
+  background-color: #000;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
 
-/* 
-.splide__arrow.splide__arrow--next.next-button:active,
-.splide__arrow.splide__arrow--next.next-button:hover,
-.splide__arrow.splide__arrow--prev.previous-button:active,
-.splide__arrow.splide__arrow--prev.previous-button:hover {
-  background-color: rgb(54, 123, 246);
-  border: 1px solid rgb(54, 123, 246);
-  color: #fff;
-} */
+.splide__arrow.splide__arrow--next.next-button:hover::after {
+  transform: translateX(0);
+}
 
 /*------------------------------------ QUICK LOOK ------------------------------------*/
 @media screen and (max-width: 989px) {
@@ -210,6 +213,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  z-index: 2;
 }
 
 .custom-featured-collections__quick-look-container button::after {
@@ -233,6 +237,10 @@
 
 .quick-look-btn .text {
   display: none;
+  z-index: 3;
+}
+
+.quick-look-btn div.svg {
   z-index: 3;
 }
 

@@ -1,54 +1,58 @@
 {{ 'custom-featured-collections.css' | asset_url | stylesheet_tag }}
-<script src="{{'custom-featured-collections.js' |  asset_url}}" defer></script>
+<script src="{{ 'custom-featured-collections.js' | asset_url }}" defer></script>
 
 {% capture splideoptions %}
-  {
-      "type": "slide",
-      "perPage": 4,
-      "pagination": false,
-      "breakpoints": {
-        "989": {
-          "perPage": 2,
-          "pagination": false
-        }
+{
+  "type": "{{ section.settings.slide_type }}",
+  "perPage": 4,
+  "pagination": {{ section.settings.display_dots }},
+  "autoplay": {{ section.settings.autoplay_slide }},
+  "interval": {{ section.settings.autoplay_duration }}000,
+  "arrows": {{ section.settings.display_arrows }},
+  "breakpoints": {
+    "989": {
+      "perPage": 2,
+      "pagination": false
     }
   }
-  {% endcapture %}
+}
+{% endcapture %}
 
 {% style %}
   .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
   @media screen and (min-width: 750px) {
-      .section-{{ section.id }}-padding {
-          padding-top: {{ section.settings.padding_top }}px;
-          padding-bottom: {{ section.settings.padding_bottom }}px;
-      }
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
   }
 
   .bg-color--{{ section.id }} {
-      background-color: {{ section.settings.background_color }};
+    background-color: {{ section.settings.background_color }};
   }
 {% endstyle %}
 
 <div class="custom-featured-collections__wrapper section-{{ section.id }}-padding bg-color--{{ section.id }}">
   <div class="custom-featured-collections__responsive wrapper page-width">
-    <!-- prettier-ignore-->
-    <splider-component class="splide splide-component" data-options='{{ splideoptions}}'>
+    <h2>{{ section.settings.section_title }}</h2>
+    <!-- prettier-ignore -->
+    <splider-component class="splide splide-component" data-options='{{ splideoptions }}'>
       <div class="splide__arrows splide__arrows--ltr btns-container">
         <button class="splide__arrow splide__arrow--prev previous-button" type="button" aria-label="Previous slide" aria-controls="splide01-track">
-            <svg class="chevron--right" width="30" height="40" viewBox="0 0 24 25" fill="none">
-                <path d="M9 18.7913L15 12.7913L9 6.79126" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+          <svg class="chevron--right" width="30" height="40" viewBox="0 0 24 25" fill="none">
+            <path d="M9 18.7913L15 12.7913L9 6.79126" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
         </button>
         <button class="splide__arrow splide__arrow--next next-button" type="button" aria-label="Next slide" aria-controls="splide01-track">
-            <svg class="chevron--right" width="30" height="40" viewBox="0 0 24 25" fill="none">
-                <path d="M9 18.7913L15 12.7913L9 6.79126" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+          <svg class="chevron--right" width="30" height="40" viewBox="0 0 24 25" fill="none">
+            <path d="M9 18.7913L15 12.7913L9 6.79126" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
         </button>
-    </div>
+      </div>
 
       <div class="splide__track">
         <ul class="splide__list">
@@ -56,78 +60,61 @@
             <li class="splide__slide custom-featured-collections__product-card-wrapper">
               <div class="custom-featured-collections__product-card isolate">
                 <div class="custom-featured-collections__media-wrapper">
-                  <a href="{{product.url}}">
-                    {% render 'responsive-picture'
-                      desktopImage: {{product.featured_image }},
-                      img-class: 'w-full'
-                    %}
+                  <a href="{{ product.url }}">
+                    {% render 'responsive-picture', desktopImage: product.featured_image, img-class: 'w-full' %}
                   </a>
                 </div>
                 <div class="custom-featured-collections__info-wrapper">
-                 <div class="custom-featured-collections__color-variants-wrapper">
-                  {% for option in product.options_with_values %}
-                    {% for color in option.values %}
-                      {% if color.swatch.color %}
-                        <div
-                          class='custom-featured-collections__color-variants {% if  forloop.index0 == 0 %} active {% endif %}'
-                          style='background-color: {{color.swatch.color}}; outline-color: {{color.swatch.color}}'>
-                          </div>
-                      {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                 </div>
-                    {% if product.vendor != blank %}
-                      <h4>{{product.vendor}}</h4>
-                    {% endif %}
-                    {% if product.title != blank %}
-                      <h3>
-                        <a href="{{product.url}}">{{product.title}}</a>
-                      </h3>
-                    {% endif %}
-                    {% if product.price != blank %}
-                    <p>From {{product.price | money}} {% if product.compare_at_price != blank %}<span class="compare-at-price">{{product.compare_at_price |  money}}</span> {% endif %}</p>
-                    {% endif %}
-                    {% assign quantity = product.selected_or_first_available_variant.inventory_quantity %}
-                    <p class="stock {%if  quantity < 10%}out-of-stock {% endif %}">
-                      {% if quantity == 0 %}
-                        Out of stock
-                        {%  elsif quantity < 10 %}
-                          only {{quantity}} {% if quantity < 2 %} unit {% else %} units {% endif %} left
-                          {% else %}
-                          {{quantity}} in stock
+                  <div class="custom-featured-collections__color-variants-wrapper">
+                    {% for option in product.options_with_values %}
+                      {% for color in option.values %}
+                        {% if color.swatch.color %}
+                          <div class='custom-featured-collections__color-variants {% if forloop.index0 == 0 %} active {% endif %}' style='background-color: {{ color.swatch.color }}; outline-color: {{ color.swatch.color }}'></div>
                         {% endif %}
-                    </p>
+                      {% endfor %}
+                    {% endfor %}
+                  </div>
+                  {% if product.vendor != blank %}
+                    <h4>{{ product.vendor }}</h4>
+                  {% endif %}
+                  {% if product.title != blank %}
+                    <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                  {% endif %}
+                  {% if product.price != blank %}
+                    <p>From {{ product.price | money }} {% if product.compare_at_price != blank %}<span class="compare-at-price">{{ product.compare_at_price | money }}</span> {% endif %}</p>
+                  {% endif %}
+                  {% assign quantity = product.selected_or_first_available_variant.inventory_quantity %}
+                  <p class="stock {% if quantity < 10 %}out-of-stock {% endif %}">
+                    {% if quantity == 0 %}
+                      Out of stock
+                    {% elsif quantity < 10 %}
+                      only {{ quantity }} {% if quantity < 2 %} unit {% else %} units {% endif %} left
+                    {% else %}
+                      {{ quantity }} in stock
+                    {% endif %}
+                  </p>
                 </div>
                 <div class="custom-featured-collections__tags-container">
-                        {% for tag in product.tags %}
-                          {% if tag == "new" %} <span class="new">{{tag | capitalize}}</span>{% endif %}
-                          {% endfor %}
-                          {% if product.price != blank and product.compare_at_price != blank %}
-                            {% assign original_price = product.compare_at_price %}
-          {% assign current_price = product.price %}
-          {% assign discount_percentage = original_price
-            | minus: current_price
-            | times: 100
-            | divided_by: original_price
-            | round
-          %}
-        
-                            <span class="percentage">{{discount_percentage |  abs}}%</span>
-                          {% endif %}
+                  {% for tag in product.tags %}
+                    {% if tag == "new" %}
+                      <span class="new">{{ tag | capitalize }}</span>
+                    {% endif %}
+                  {% endfor %}
+                  {% if product.price != blank and product.compare_at_price != blank %}
+                    {% assign original_price = product.compare_at_price %}
+                    {% assign current_price = product.price %}
+                    {% assign discount_percentage = original_price | minus: current_price | times: 100 | divided_by: original_price | round %}
+                    <span class="percentage">{{ discount_percentage | abs }}%</span>
+                  {% endif %}
                 </div>
                 <div class="custom-featured-collections__quick-look-container">
-                  <button class="quick-look-btn" data-url = {{product.url}}>
+                  <button class="quick-look-btn" data-url="{{ product.url }}">
                     <p class="text">Quick Look</p>
                     <div class="svg">
-                      <svg viewBox="0 0 511.999 511.999"><path d="M508.745,246.041c-4.574-6.257-113.557-153.206-252.748-153.206S7.818,239.784,3.249,246.035
-                      c-4.332,5.936-4.332,13.987,0,19.923c4.569,6.257,113.557,153.206,252.748,153.206s248.174-146.95,252.748-153.201
-                      C513.083,260.028,513.083,251.971,508.745,246.041z M255.997,385.406c-102.529,0-191.33-97.533-217.617-129.418
-                      c26.253-31.913,114.868-129.395,217.617-129.395c102.524,0,191.319,97.516,217.617,129.418
-                      C447.361,287.923,358.746,385.406,255.997,385.406z"></path>
-                      <path d="M255.997,154.725c-55.842,0-101.275,45.433-101.275,101.275s45.433,101.275,101.275,101.275
-                      s101.275-45.433,101.275-101.275S311.839,154.725,255.997,154.725z M255.997,323.516c-37.23,0-67.516-30.287-67.516-67.516
-                      s30.287-67.516,67.516-67.516s67.516,30.287,67.516,67.516S293.227,323.516,255.997,323.516z"></path>
-              </svg>
+                      <svg viewBox="0 0 511.999 511.999">
+                        <path d="M508.745,246.041c-4.574-6.257-113.557-153.206-252.748-153.206S7.818,239.784,3.249,246.035 c-4.332,5.936-4.332,13.987,0,19.923c4.569,6.257,113.557,153.206,252.748,153.206s248.174-146.95,252.748-153.201 C513.083,260.028,513.083,251.971,508.745,246.041z M255.997,385.406c-102.529,0-191.33-97.533-217.617-129.418 c26.253-31.913,114.868-129.395,217.617-129.395c102.524,0,191.319,97.516,217.617,129.418 C447.361,287.923,358.746,385.406,255.997,385.406z"></path>
+                        <path d="M255.997,154.725c-55.842,0-101.275,45.433-101.275,101.275s45.433,101.275,101.275,101.275 s101.275-45.433,101.275-101.275S311.839,154.725,255.997,154.725z M255.997,323.516c-37.23,0-67.516-30.287-67.516-67.516 s30.287-67.516,67.516-67.516s67.516,30.287,67.516,67.516S293.227,323.516,255.997,323.516z"></path>
+                      </svg>
                     </div>
                   </button>
                 </div>
@@ -147,10 +134,68 @@
   "class": "section",
   "settings": [
     {
+      "type": "text",
+      "label": "Section title",
+      "id": "section_title"
+    },
+    {
       "type": "collection",
       "label": "Collection",
       "id": "collection"
     },
+    {
+      "type": "header",
+      "content": "Slider settings"
+    },
+    {
+      "type": "select",
+      "id": "slide_type",
+      "label": "Slider type",
+      "options": [
+        {
+          "value": "loop",
+          "label": "Loop"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "checkbox",
+      "label": "Display arrows",
+      "id": "display_arrows",
+      "default": true,
+      "info": "Arrows are hidden in mobile devices"
+    },
+    {
+      "type": "checkbox",
+      "label": "Display dots",
+      "id": "display_dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "label": "Autoplay slide",
+      "id": "autoplay_slide",
+      "default": false
+    },
+    {
+      "type": "range",
+      "label": "Autoplay duration",
+      "id": "autoplay_duration",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+
     {
       "type": "header",
       "content": "Section styling"
@@ -188,7 +233,7 @@
   "blocks": [],
   "presets": [
     {
-      "name": "Venna collection"
+      "name": "Veena Collection"
     }
   ]
 }

@@ -72,6 +72,7 @@
     "custom_featured_collections_HJxdEE": {
       "type": "custom-featured-collections",
       "settings": {
+        "section_title": "You may also like this",
         "collection": "veena-collection",
         "background_color": "",
         "padding_top": 36,
