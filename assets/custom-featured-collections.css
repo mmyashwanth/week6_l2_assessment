@@ -41,6 +41,7 @@
   height: 20px;
   width: 20px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .custom-featured-collections__color-variants.active {

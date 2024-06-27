@@ -104,7 +104,7 @@
                     {% assign original_price = product.compare_at_price %}
                     {% assign current_price = product.price %}
                     {% assign discount_percentage = original_price | minus: current_price | times: 100 | divided_by: original_price | round %}
-                    <span class="percentage">{{ discount_percentage | abs }}%</span>
+                    <span class="percentage">{{ discount_percentage | abs }}% Off</span>
                   {% endif %}
                 </div>
                 <div class="custom-featured-collections__quick-look-container">
