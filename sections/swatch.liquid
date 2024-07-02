@@ -1,0 +1,45 @@
+<style>
+  {% for block in section.blocks%}
+    {% case blok.type %}
+      {% when 'color' %}
+        .swatch .swatch-item--{{block.settings.color_name |  handleize}},
+        .swatch .swatch-item--{{block.settings.color_name |  downcase}},
+        .swatch .swatch-item--{{block.settings.color_name |  capitalize}},
+        {
+          background-color: {{block.settings.color_code}};
+        }
+      {% when 'image' %}
+        .swatch .swatch-item--{{block.settings.color_name |  handleize}},
+        .swatch .swatch-item--{{block.settings.color_name |  downcase}},
+        .swatch .swatch-item--{{block.settings.color_name |  capitalize}},
+        {
+          background-color: url('{{block.settings.color_}}');
+        }
+    {% endcase %}
+  {% endfor %}
+</style>
+
+{% schema %}
+{
+  "name": "Swatch",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Color",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Color name",
+          "id": "color_name"
+        },
+        {
+          "type": "color",
+          "label": "Color code",
+          "id": "color_code"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

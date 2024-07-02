@@ -1495,3 +1495,74 @@ class SpliderComponent extends HTMLElement {
   }
 }
 customElements.define("splider-component", SpliderComponent);
+
+// Marmeto product card js
+class MarmetoProductCard extends HTMLElement {
+  constructor() {
+    super();
+
+    this.productHandle = this.dataset.productHandle;
+    this.sectionId = this.dataset.sectionId;
+
+    //VARIANT CHANGE
+    this.addEventListener("change", this.onVariantChange);
+
+    //FORM SUBMISSION
+    this.form = this.querySelector('form[action$="/cart/add"]');
+    this.form.addEventListener("submit", this.onSubmitHandler.bind(this));
+  }
+
+  onVariantChange() {
+    this.variantData = JSON.parse(
+      this.querySelector("[data-variant-holder]").textContent
+    );
+    this.selectedVariant = this.querySelector('[name="id"]').value;
+    this.currentVariant = this.variantData.find(
+      (variant) => variant.id == this.selectedVariant
+    );
+
+    this.renderUpdatedCard();
+  }
+
+  renderUpdatedCard() {
+    const url = `/products/${this.productHandle}?variant=${this.currentVariant.id}&section_id=${this.sectionId}`;
+    fetch(url)
+      .then((response) => response.text())
+      .then((responseText) => {
+        const html = new DOMParser().parseFromString(responseText, "text/html");
+        this.innerHTML = html.querySelector(
+          `[data-product-handle="${this.productHandle}"]`
+        ).innerHTML;
+      });
+  }
+
+  onSubmitHandler(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this.form);
+    this.submitButton = this.querySelector('[type="submit"]');
+    this.submitButton.setAttribute("disabled", "true");
+
+    fetch("/cart/add.js", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status) {
+          console.log(`Error: ${response.description}`);
+        } else {
+          //OPEN AJAXCART OR REDIRECT TO CART
+          window.location = "/cart";
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+      .finally(() => {
+        this.submitButton.removeAttribute("disabled");
+      });
+  }
+}
+
+customElements.define("marmeto-product-card", MarmetoProductCard);

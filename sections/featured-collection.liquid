@@ -104,17 +104,7 @@
               style="--animation-order: {{ forloop.index }};"
             {% endif %}
           >
-            {% render 'card-product',
-              card_product: product,
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: section.settings.image_shape,
-              show_secondary_image: section.settings.show_secondary_image,
-              show_vendor: section.settings.show_vendor,
-              show_rating: section.settings.show_rating,
-              skip_styles: skip_card_product_styles,
-              section_id: section.id,
-              quick_add: section.settings.quick_add
-            %}
+            {% render 'marmeto-product-card', product: product %}
           </li>
           {%- assign skip_card_product_styles = true -%}
         {%- else -%}
@@ -136,12 +126,15 @@
                 endcase
               %}
               {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
-              {% render 'card-product',
-                show_vendor: section.settings.show_vendor,
-                media_aspect_ratio: section.settings.image_ratio,
-                image_shape: section.settings.image_shape,
-                placeholder_image: placeholder_image
-              %}
+              {% render 'marmeto-product-card', product: product %}
+              {% comment %}
+                {% render 'card-product',
+                  show_vendor: section.settings.show_vendor,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: section.settings.image_shape,
+                  placeholder_image: placeholder_image
+                %}
+              {% endcomment %}
             </li>
           {%- endfor -%}
         {%- endfor -%}

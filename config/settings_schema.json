@@ -56,7 +56,7 @@
             "type": "color",
             "id": "text",
             "label": "t:settings_schema.colors.settings.text.label",
-            "default": "#121212"
+            "default": "#121212"\
           },
           {
             "type": "color",
